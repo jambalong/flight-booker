@@ -7,3 +7,7 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+[ 'SEA', 'LAX', 'NYC', 'HNL', 'MIA', 'SFO', 'ATL', 'ORD' ].each do |airport_code|
+  Airport.find_or_create_by!(code: airport_code)
+end
