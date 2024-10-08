@@ -1,7 +1,6 @@
 class FlightsController < ApplicationController
   def index
     @airports = Airport.all
-    # @flight_dates = Flight.select("DATE(start_datetime) AS flight_date").distinct
     @flight_dates = Flight.select("MIN(start_datetime) AS start_datetime")
                      .group("DATE(start_datetime)")
                      .order("MIN(start_datetime)")
