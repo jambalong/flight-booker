@@ -10,12 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_07_043326) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_08_233919) do
   create_table "airports", force: :cascade do |t|
     t.string "code", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["code"], name: "index_airports_on_code", unique: true
+  end
+
+  create_table "bookings", force: :cascade do |t|
+    t.integer "flight_id", null: false
+    t.integer "user_id", null: false
+    t.integer "passenger_count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["flight_id"], name: "index_bookings_on_flight_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
   create_table "flights", force: :cascade do |t|
@@ -41,6 +51,8 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_07_043326) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "bookings", "flights"
+  add_foreign_key "bookings", "users"
   add_foreign_key "flights", "airports", column: "arrival_airport_id"
   add_foreign_key "flights", "airports", column: "departure_airport_id"
 end
