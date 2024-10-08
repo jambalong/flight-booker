@@ -11,7 +11,7 @@
   </div>
   <div>
     <%= form.label :flight_date, "Flight Date:" %>
-    <%= form.select :flight_date, @flight_dates.map { |flight| [flight.start_datetime.strftime('%m/%d/%Y'), flight.start_datetime]}, { selected: params[:flight_date] } %>
+    <%= form.select :flight_date, @flight_dates.map { |flight| [flight.start_datetime.strftime('%m/%d/%Y'), flight.start_datetime.to_date]}, { selected: params[:flight_date] } %>
   </div>
   <div>
     <%= form.label :passenger_count, "Passengers Count:" %>
