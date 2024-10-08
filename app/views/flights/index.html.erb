@@ -11,7 +11,7 @@
   </div>
   <div>
     <%= form.label :flight_date, "Flight Date:" %>
-    <%= form.select :flight_date, @flight_dates.map(&:flight_date), { selected: params[:flight_date] } %>
+    <%= form.select :flight_date, @flight_dates.map { |flight| [flight.start_datetime.strftime('%m/%d/%Y'), flight.start_datetime]}, { selected: params[:flight_date] } %>
   </div>
   <div>
     <%= form.label :passenger_count, "Passengers Count:" %>
@@ -22,7 +22,7 @@
 
 <% if @flights.any? %>
   <h2>Search Results:</h2>
-  <%= form_with url: new_booking_path, method: :get do |form| %>
+  <%= form_with method: :get do |form| %>
     <table>
       <thead>
         <tr>
@@ -39,7 +39,7 @@
             <td><%= form.radio_button :selected_flight, flight.id %></td>
             <td><%= flight.departure_airport.code %></td>
             <td><%= flight.arrival_airport.code %></td>
-            <td><%= flight.start_datetime.strftime('%Y-%m-%d %H:%M') %></td>
+            <td><%= flight.start_datetime.strftime('%A, %b %d, %Y %I:%M %p') %></td>
             <td><%= format_duration(flight.duration) %></td>
           </tr>
         <% end %>
