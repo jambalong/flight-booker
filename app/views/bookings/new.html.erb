@@ -1,0 +1,33 @@
+<h1>New Booking</h1>
+
+<p>
+  <b>Date:</b> <%= @flight.start_datetime.strftime('%A, %b %d, %Y') %>
+</p>
+<p>
+  <b>Time:</b> <%= @flight.start_datetime.strftime('%I:%M %p') %>
+</p>
+<p>
+  <b>Route:</b> <%= @flight.departure_airport.code %> to <%= @flight.arrival_airport.code %>
+</p>
+<p>
+  <b>Duration:</b> <%= format_duration(@flight.duration) %>
+</p>
+
+<h2>Passenger Details:</h2>
+<%= form_with model: @booking do |f| %>
+  <%= f.hidden_field :flight_id, value: @flight.id %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.hidden_field :passenger_count, value: @booking.passenger_count %>
+
+  <%= f.fields_for :passengers do |p| %>
+    <div>
+      <%= p.label :name %>
+      <%= p.text_field :name %>
+
+      <%= p.label :email %>
+      <%= p.email_field :email %>
+    </div>
+  <% end %>
+
+  <%= f.submit %>
+<% end %>
